@@ -9,11 +9,15 @@ import SwiftUI
 import Foundation
 
 struct SignInView: View {
-    
-    @ObservedObject var viewModel: SignInViewModel
-    @Binding var signInSuccess: Bool
+    @Binding var signedInState: Bool
+
+    @ObservedObject var viewModel = SignInViewModel()
     var body: some View {
-        Button("Sign In", action: viewModel.authenticate)
+        Button("Sign In", action: {
+            viewModel.authenticate { result in
+                signedInState = result
+            }
+        })
     }
     
 }

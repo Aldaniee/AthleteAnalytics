@@ -19,12 +19,11 @@ class NetworkManager {
     
     let accessToken = "1ca6cc44551dc86b769451e57a6525ff7d48ec97"
     private let baseURL = "https://www.strava.com/api/v3/athlete"
-    
-     var authSession: ASWebAuthenticationSession?
-    
+    var authSession: ASWebAuthenticationSession?
     let clientId = "75010"
     let urlScheme = "athleteanalytics"
     let fallbackUrl = "athleteanalytics.com"
+
     
     func getAthlete() -> Future<Athlete, Error> {
         return Future { [weak self] promise in

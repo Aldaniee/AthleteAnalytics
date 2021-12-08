@@ -9,17 +9,15 @@ import Foundation
 import SwiftUI
 
 struct AppContentView: View {
-    
-    @State var signInSuccess = false
-    @ObservedObject var viewModel = SignInViewModel()
+    @State var signedInState = false
 
     var body: some View {
         return Group {
-            if signInSuccess {
-                ProfileView(viewModel: ProfileViewModel())
+            if signedInState {
+                ProfileView(signedInState: $signedInState)
             }
             else {
-                SignInView(viewModel: SignInViewModel(), signInSuccess: $signInSuccess)
+                SignInView(signedInState: $signedInState)
             }
         }
     }

@@ -14,14 +14,12 @@
 		EAF7AF43276113000092F617 /* AthleteAnalyticsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF7AF42276113000092F617 /* AthleteAnalyticsUITests.swift */; };
 		EAF7AF45276113000092F617 /* AthleteAnalyticsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF7AF44276113000092F617 /* AthleteAnalyticsUITestsLaunchTests.swift */; };
 		EAF7AF59276113180092F617 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF7AF51276113180092F617 /* SignInView.swift */; };
-		EAF7AF5A276113180092F617 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF7AF52276113180092F617 /* Response.swift */; };
 		EAF7AF5B276113180092F617 /* Athlete.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF7AF53276113180092F617 /* Athlete.swift */; };
 		EAF7AF5C276113180092F617 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF7AF54276113180092F617 /* SignInViewModel.swift */; };
 		EAF7AF5D276113180092F617 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF7AF55276113180092F617 /* ProfileViewModel.swift */; };
 		EAF7AF5E276113180092F617 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF7AF56276113180092F617 /* NetworkManager.swift */; };
 		EAF7AF5F276113180092F617 /* AppContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF7AF57276113180092F617 /* AppContentView.swift */; };
 		EAF7AF60276113180092F617 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF7AF58276113180092F617 /* ProfileView.swift */; };
-		EAF7AF62276113410092F617 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EAF7AF61276113410092F617 /* Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,14 +50,13 @@
 		EAF7AF42276113000092F617 /* AthleteAnalyticsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AthleteAnalyticsUITests.swift; sourceTree = "<group>"; };
 		EAF7AF44276113000092F617 /* AthleteAnalyticsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AthleteAnalyticsUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		EAF7AF51276113180092F617 /* SignInView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
-		EAF7AF52276113180092F617 /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		EAF7AF53276113180092F617 /* Athlete.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Athlete.swift; sourceTree = "<group>"; };
 		EAF7AF54276113180092F617 /* SignInViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
 		EAF7AF55276113180092F617 /* ProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		EAF7AF56276113180092F617 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		EAF7AF57276113180092F617 /* AppContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppContentView.swift; sourceTree = "<group>"; };
 		EAF7AF58276113180092F617 /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
-		EAF7AF61276113410092F617 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EAF7AF632761148B0092F617 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,16 +107,12 @@
 		EAF7AF26276112FE0092F617 /* AthleteAnalytics */ = {
 			isa = PBXGroup;
 			children = (
-				EAF7AF61276113410092F617 /* Info.plist */,
+				EAF7AF632761148B0092F617 /* Info.plist */,
 				EAF7AF27276112FE0092F617 /* AthleteAnalyticsApp.swift */,
 				EAF7AF57276113180092F617 /* AppContentView.swift */,
-				EAF7AF53276113180092F617 /* Athlete.swift */,
-				EAF7AF56276113180092F617 /* NetworkManager.swift */,
-				EAF7AF58276113180092F617 /* ProfileView.swift */,
-				EAF7AF55276113180092F617 /* ProfileViewModel.swift */,
-				EAF7AF52276113180092F617 /* Response.swift */,
-				EAF7AF51276113180092F617 /* SignInView.swift */,
-				EAF7AF54276113180092F617 /* SignInViewModel.swift */,
+				EAF7AF64276115C30092F617 /* Managers */,
+				EAF7AF65276115CC0092F617 /* Profile */,
+				EAF7AF66276115E70092F617 /* SignIn */,
 				EAF7AF2B276113000092F617 /* Assets.xcassets */,
 				EAF7AF2D276113000092F617 /* Preview Content */,
 			);
@@ -149,6 +142,73 @@
 				EAF7AF44276113000092F617 /* AthleteAnalyticsUITestsLaunchTests.swift */,
 			);
 			path = AthleteAnalyticsUITests;
+			sourceTree = "<group>";
+		};
+		EAF7AF64276115C30092F617 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				EAF7AF56276113180092F617 /* NetworkManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		EAF7AF65276115CC0092F617 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				EAF7AF6C2761162D0092F617 /* Model */,
+				EAF7AF6B276116280092F617 /* ViewModel */,
+				EAF7AF6A276116250092F617 /* View */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		EAF7AF66276115E70092F617 /* SignIn */ = {
+			isa = PBXGroup;
+			children = (
+				EAF7AF69276116050092F617 /* ViewModel */,
+				EAF7AF67276115F90092F617 /* View */,
+			);
+			path = SignIn;
+			sourceTree = "<group>";
+		};
+		EAF7AF67276115F90092F617 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				EAF7AF51276113180092F617 /* SignInView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		EAF7AF69276116050092F617 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				EAF7AF54276113180092F617 /* SignInViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		EAF7AF6A276116250092F617 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				EAF7AF58276113180092F617 /* ProfileView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		EAF7AF6B276116280092F617 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				EAF7AF55276113180092F617 /* ProfileViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		EAF7AF6C2761162D0092F617 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				EAF7AF53276113180092F617 /* Athlete.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,7 +317,6 @@
 			files = (
 				EAF7AF2F276113000092F617 /* Preview Assets.xcassets in Resources */,
 				EAF7AF2C276113000092F617 /* Assets.xcassets in Resources */,
-				EAF7AF62276113410092F617 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,7 +344,6 @@
 				EAF7AF5F276113180092F617 /* AppContentView.swift in Sources */,
 				EAF7AF5B276113180092F617 /* Athlete.swift in Sources */,
 				EAF7AF60276113180092F617 /* ProfileView.swift in Sources */,
-				EAF7AF5A276113180092F617 /* Response.swift in Sources */,
 				EAF7AF5C276113180092F617 /* SignInViewModel.swift in Sources */,
 				EAF7AF59276113180092F617 /* SignInView.swift in Sources */,
 				EAF7AF5E276113180092F617 /* NetworkManager.swift in Sources */,
@@ -454,6 +512,7 @@
 				DEVELOPMENT_TEAM = AZ2X8YV7UR;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AthleteAnalytics/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -483,6 +542,7 @@
 				DEVELOPMENT_TEAM = AZ2X8YV7UR;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AthleteAnalytics/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
