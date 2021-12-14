@@ -16,23 +16,16 @@ class NetworkManager {
     private init() {
         
     }
-    
-    let accessToken = "1ca6cc44551dc86b769451e57a6525ff7d48ec97"
-    private let baseURL = "https://www.strava.com/api/v3/athlete"
-    var authSession: ASWebAuthenticationSession?
-    let clientId = "75010"
-    let urlScheme = "athleteanalytics"
-    let fallbackUrl = "athleteanalytics.com"
 
     
     func getAthlete() -> Future<Athlete, Error> {
         return Future { [weak self] promise in
-
-            
-            guard let self = self, let url = URL(string: self.baseURL) else {
+            // Build URL
+            guard let self = self, let url = URL(string: "\(Constants.baseURL)\(StravaAuthManager.shared.athlete!.id)") else {
                 return promise(.failure(NetworkError.invalidURL))
             }
-            let token = "Bearer \(self.accessToken)"
+            
+            let token = "Bearer \(StravaAuthManager.shared.accessToken)"
             var request = URLRequest(url: url, timeoutInterval: Double.infinity)
             request.addValue(token, forHTTPHeaderField: "Authorization")
 

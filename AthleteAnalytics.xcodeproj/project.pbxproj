@@ -20,6 +20,11 @@
 		EAF7AF5E276113180092F617 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF7AF56276113180092F617 /* NetworkManager.swift */; };
 		EAF7AF5F276113180092F617 /* AppContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF7AF57276113180092F617 /* AppContentView.swift */; };
 		EAF7AF60276113180092F617 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF7AF58276113180092F617 /* ProfileView.swift */; };
+		EAF7AF702761353C0092F617 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF7AF6F2761353C0092F617 /* Constants.swift */; };
+		EAF7AF722761365E0092F617 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF7AF712761365E0092F617 /* Keys.swift */; };
+		EAF7AF74276136EA0092F617 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = EAF7AF73276136EA0092F617 /* .gitignore */; };
+		EAF7AF7627614CFA0092F617 /* StravaAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF7AF7527614CFA0092F617 /* StravaAuthManager.swift */; };
+		EAF7AF78276151BB0092F617 /* StravaAuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF7AF77276151BB0092F617 /* StravaAuthResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +62,11 @@
 		EAF7AF57276113180092F617 /* AppContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppContentView.swift; sourceTree = "<group>"; };
 		EAF7AF58276113180092F617 /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		EAF7AF632761148B0092F617 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		EAF7AF6F2761353C0092F617 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		EAF7AF712761365E0092F617 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
+		EAF7AF73276136EA0092F617 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		EAF7AF7527614CFA0092F617 /* StravaAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StravaAuthManager.swift; sourceTree = "<group>"; };
+		EAF7AF77276151BB0092F617 /* StravaAuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StravaAuthResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +125,9 @@
 				EAF7AF66276115E70092F617 /* SignIn */,
 				EAF7AF2B276113000092F617 /* Assets.xcassets */,
 				EAF7AF2D276113000092F617 /* Preview Content */,
+				EAF7AF6F2761353C0092F617 /* Constants.swift */,
+				EAF7AF712761365E0092F617 /* Keys.swift */,
+				EAF7AF73276136EA0092F617 /* .gitignore */,
 			);
 			path = AthleteAnalytics;
 			sourceTree = "<group>";
@@ -148,6 +161,8 @@
 			isa = PBXGroup;
 			children = (
 				EAF7AF56276113180092F617 /* NetworkManager.swift */,
+				EAF7AF7527614CFA0092F617 /* StravaAuthManager.swift */,
+				EAF7AF77276151BB0092F617 /* StravaAuthResponse.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -316,6 +331,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EAF7AF2F276113000092F617 /* Preview Assets.xcassets in Resources */,
+				EAF7AF74276136EA0092F617 /* .gitignore in Resources */,
 				EAF7AF2C276113000092F617 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -342,13 +358,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				EAF7AF5F276113180092F617 /* AppContentView.swift in Sources */,
+				EAF7AF78276151BB0092F617 /* StravaAuthResponse.swift in Sources */,
 				EAF7AF5B276113180092F617 /* Athlete.swift in Sources */,
 				EAF7AF60276113180092F617 /* ProfileView.swift in Sources */,
 				EAF7AF5C276113180092F617 /* SignInViewModel.swift in Sources */,
 				EAF7AF59276113180092F617 /* SignInView.swift in Sources */,
 				EAF7AF5E276113180092F617 /* NetworkManager.swift in Sources */,
 				EAF7AF28276112FE0092F617 /* AthleteAnalyticsApp.swift in Sources */,
+				EAF7AF7627614CFA0092F617 /* StravaAuthManager.swift in Sources */,
 				EAF7AF5D276113180092F617 /* ProfileViewModel.swift in Sources */,
+				EAF7AF702761353C0092F617 /* Constants.swift in Sources */,
+				EAF7AF722761365E0092F617 /* Keys.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

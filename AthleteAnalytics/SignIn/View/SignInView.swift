@@ -14,7 +14,7 @@ struct SignInView: View {
     @ObservedObject var viewModel = SignInViewModel()
     var body: some View {
         Button("Sign In", action: {
-            viewModel.authenticate { result in
+            viewModel.signIn { result in
                 signedInState = result
             }
         })
