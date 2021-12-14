@@ -97,6 +97,7 @@
 		EAF7AF1B276112FE0092F617 = {
 			isa = PBXGroup;
 			children = (
+				EAF7AF73276136EA0092F617 /* .gitignore */,
 				EAF7AF26276112FE0092F617 /* AthleteAnalytics */,
 				EAF7AF37276113000092F617 /* AthleteAnalyticsTests */,
 				EAF7AF41276113000092F617 /* AthleteAnalyticsUITests */,
@@ -127,7 +128,6 @@
 				EAF7AF2D276113000092F617 /* Preview Content */,
 				EAF7AF6F2761353C0092F617 /* Constants.swift */,
 				EAF7AF712761365E0092F617 /* Keys.swift */,
-				EAF7AF73276136EA0092F617 /* .gitignore */,
 			);
 			path = AthleteAnalytics;
 			sourceTree = "<group>";
