@@ -7,14 +7,18 @@
 
 import Foundation
 import SwiftUI
+import Combine
 import AuthenticationServices
 
 class SignInViewModel: NSObject, ObservableObject, ASWebAuthenticationPresentationContextProviding {
-    
+
+    private var cancellables = Set<AnyCancellable>()
+
     func signIn(signedIn: @escaping (Bool) -> Void) {
-        StravaAuthManager.shared.authenticate()
-        let url: String = "https://www.strava.com/oauth/mobile/authorize?client_id=\(Keys.clientId)&redirect_uri=\(Constants.urlScheme)\(Keys.fallbackUrl)&response_type=code&approval_prompt=auto&scope=read"
-        guard let authenticationUrl = URL(string: url) else { return }
+        guard let authenticationUrl = URL(string: Constants.webOAuthUrl) else {
+            print("url error")
+            return
+        }
 
         StravaAuthManager.shared.authSession = ASWebAuthenticationSession(url: authenticationUrl, callbackURLScheme: "\(Constants.urlScheme)") { url, error in
             if let error = error {
@@ -22,8 +26,26 @@ class SignInViewModel: NSObject, ObservableObject, ASWebAuthenticationPresentati
                 signedIn(false)
             } else {
                 if let url = url {
-                    print(url)
-                    signedIn(true)
+                    let component = URLComponents(string: url.absoluteString)
+                    guard let code = component?.queryItems?.first(where: {$0.name == "code"})?.value else {
+                        print("no code found")
+                        return
+                    }
+                    print("Code: \(code)")
+                    StravaAuthManager.shared.exchangeCodeForToken(code: code)
+                        .sink { completion in
+                            switch completion {
+                            case .failure(let err):
+                                print("Error is \(err.localizedDescription)")
+                            case .finished:
+                                print("exchangeCodeForToken Finished")
+                            }
+
+                    }
+                receiveValue: { result in
+                    signedIn(result)
+                }
+                .store(in: &self.cancellables)
                 }
             }
         }

@@ -39,6 +39,7 @@ struct ProfileView: View {
 
                         }
                         Button("Sign Out", action: {
+                            StravaAuthManager.shared.signOut()
                             signedInState = false
                         })
                         Spacer()

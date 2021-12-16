@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct AppContentView: View {
-    @State var signedInState = false
+    @State var signedInState = StravaAuthManager.shared.isSignedIn
 
     var body: some View {
         return Group {

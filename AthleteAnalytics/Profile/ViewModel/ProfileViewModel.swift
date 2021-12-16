@@ -14,7 +14,7 @@ class ProfileViewModel: ObservableObject {
     @Published var athlete: Athlete?
     
     func getAthleteData() {
-        NetworkManager.shared.getAthlete()
+        StravaAPICaller.shared.getAthlete()
             .sink { completion in
                 switch completion {
                 case .failure(let err):
