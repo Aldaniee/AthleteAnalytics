@@ -8,15 +8,9 @@
 import Foundation
 
 struct StravaAuthResponse: Codable {
-    let tokenType: String
-    let expiresAt, expiresIn: Int
-    let refreshToken, accessToken: String
+    let token_type: String
+    let expires_at, expires_in: Int
+    let refresh_token, access_token: String
+    let athlete: Athlete
 
-    enum CodingKeys: String, CodingKey {
-        case tokenType = "token_type"
-        case expiresAt = "expires_at"
-        case expiresIn = "expires_in"
-        case refreshToken = "refresh_token"
-        case accessToken = "access_token"
-    }
 }
