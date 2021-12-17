@@ -12,17 +12,9 @@ import AuthenticationServices
 class StravaAuthManager {
     
     static let shared = StravaAuthManager()
-    private var cancellables = Set<AnyCancellable>()
 
-    private init() {
-        
-    }
-    
+    // MARK: - Public Variables
     var authSession: ASWebAuthenticationSession?
-
-    private var refreshingToken = false
-    
-    private var code = ""
     
     var isSignedIn: Bool {
         return accessToken != nil
@@ -39,6 +31,12 @@ class StravaAuthManager {
         return UserDefaults.standard.object(forKey: "expires_in") as? Date
     }
     
+    // MARK: - Private Variables
+    private var cancellables = Set<AnyCancellable>()
+    private init() {}
+    
+    private var refreshingToken = false
+    private var code = ""
     private var refreshTokenURL: URL? {
         let string = "\(Constants.baseURL)/token?client_id=\(Keys.stravaClientId)&client_secret=\(Keys.stravaClientSecret)&code=\(self.code)&grant_type=authorization_code"
         return URL(string: string)
@@ -52,7 +50,48 @@ class StravaAuthManager {
         return currentDate.addingTimeInterval(fiveMinutes) >= expirationDate
     }
 
+    // MARK: - Public Functions
+    
+    public func authenticate(context: ASWebAuthenticationPresentationContextProviding) -> Future<Bool, Error> {
+        return Future() { [weak self] promise in
+            guard let self = self, let authenticationUrl = URL(string: Constants.webOAuthUrl) else {
+                return promise(.failure(NetworkError.invalidURL))
+            }
+            
+            self.authSession = ASWebAuthenticationSession(url: authenticationUrl, callbackURLScheme: Constants.urlScheme) { url, error in
+                if let error = error {
+                    print(error)
+                    return promise(.failure(NetworkError.responseError))
+                } else {
+                    if let url = url {
+                        let component = URLComponents(string: url.absoluteString)
+                        guard let code = component?.queryItems?.first(where: {$0.name == "code"})?.value else {
+                            print("no code found")
+                            return promise(.failure(NetworkError.unknown))
+                        }
+                        self.exchangeCodeForToken(code: code)
+                            .sink { completion in
+                                switch completion {
+                                case .failure(let err):
+                                    print("Error is \(err.localizedDescription)")
+                                case .finished:
+                                    promise(.success(true))
+                                }
+
+                            } receiveValue: { _ in }.store(in: &self.cancellables)
+                    }
+                }
+            }
+            self.authSession?.presentationContextProvider = context
+            self.authSession?.start()
+        }
+    }
+    
     /// Supplies valid token to be used with API Calls
+    /// There are three scenarios here:
+    /// 1. Stored token is valid
+    /// 2. Stored token is invalid and needs refreshing
+    /// 3. Stored token is currently being refreshed
     public func withValidToken(completion: @escaping (String) -> Void) {
         if refreshingToken || !shouldRefreshToken {
             if let token = accessToken {
@@ -107,7 +146,7 @@ class StravaAuthManager {
                 }
                 .decode(type: StravaAuthResponse.self, decoder: JSONDecoder())
                 .receive(on: RunLoop.main)
-                .sink(receiveCompletion: { (completion) in
+                .sink(receiveCompletion: { completion in
                     if case let .failure(error) = completion {
                         switch error {
                         case let decodingError as DecodingError:
@@ -119,10 +158,11 @@ class StravaAuthManager {
                             promise(.failure(NetworkError.unknown))
                         }
                     }
+                    else {
+                        promise(.success(true))
+                    }
                 }, receiveValue: {
                     self.storeTokens(result: $0)
-                    promise(.success(true))
-                    
                 })
                 .store(in: &self.cancellables)
         }
@@ -193,7 +233,8 @@ class StravaAuthManager {
                 .store(in: &self.cancellables)
         }
     }
-
+    
+    // MARK: - Private Functions
     private func storeTokens(result: StravaAuthResponse) {
         UserDefaults.standard.setValue(result.access_token, forKey: "access_token")
         UserDefaults.standard.setValue(result.refresh_token, forKey: "refresh_token")
@@ -201,12 +242,9 @@ class StravaAuthManager {
     }
 
     public func signOut() {
-        UserDefaults.standard.setValue(nil,
-                                       forKey: "access_token")
-        UserDefaults.standard.setValue(nil,
-                                       forKey: "refresh_token")
-        UserDefaults.standard.setValue(nil,
-                                       forKey: "expires_in")
+        UserDefaults.standard.setValue(nil, forKey: "access_token")
+        UserDefaults.standard.setValue(nil, forKey: "refresh_token")
+        UserDefaults.standard.setValue(nil, forKey: "expires_in")
 
     }
 }

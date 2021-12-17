@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import AuthenticationServices
+import SwiftUI
 
 enum NetworkError: Error {
     case invalidURL

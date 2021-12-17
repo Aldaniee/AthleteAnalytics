@@ -15,7 +15,7 @@ struct SignInView: View {
     var body: some View {
         Button("Sign In", action: {
             viewModel.signIn { result in
-                signedInState = result
+                signedInState = true
             }
         })
     }

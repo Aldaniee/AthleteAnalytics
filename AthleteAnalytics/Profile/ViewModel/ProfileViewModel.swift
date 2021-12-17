@@ -6,12 +6,12 @@
 //
 
 import Combine
-import SwiftUI
-
+import Foundation
 class ProfileViewModel: ObservableObject {
     
     private var cancellables = Set<AnyCancellable>()
     @Published var athlete: Athlete?
+    var url = URL(string: "")
     
     func getAthleteData() {
         StravaAPICaller.shared.getAthlete()
@@ -20,11 +20,15 @@ class ProfileViewModel: ObservableObject {
                 case .failure(let err):
                     print("Error is \(err.localizedDescription)")
                 case .finished:
-                    print("Finished")
+                    print("GetAthlete Finished")
                 }
             }
         receiveValue: { [weak self] athleteData in
             self?.athlete = athleteData
+            if let url = URL(string: athleteData.profile!) {
+                self?.url = url
+            }
+
         }
         .store(in: &cancellables)
 

@@ -21,43 +21,30 @@ struct ProfileView: View {
 
     var body: some View {
         NavigationView {
-            ZStack {
-                VStack {
-                    Spacer()
-                    VStack {
-                        Image(systemName: "person")
-                            .resizable()
-                            .aspectRatio( contentMode: .fit)
-                            .frame(width: 124, height: 124, alignment: .center)
-                        HStack {
-                            Spacer()
-                            Group {
-                                Text(viewModel.athlete?.firstname ?? "first")
-                                Text(viewModel.athlete?.lastname ?? "last")
-                            }
-                            Spacer()
-
-                        }
-                        Button("Sign Out", action: {
-                            StravaAuthManager.shared.signOut()
-                            signedInState = false
-                        })
-                        Spacer()
-                        Spacer()
-                        Spacer()
-                        Spacer()
-                        Spacer()
+            VStack {
+                AsyncImage(url: viewModel.url)
+                    .frame(width: 124, height: 124, alignment: .center)
+                    .clipShape(Circle())
+                HStack {
+                    Group {
+                        Text(viewModel.athlete?.firstname ?? "first")
+                        Text(viewModel.athlete?.lastname ?? "last")
                     }
                 }
+                Button("Sign Out", action: {
+                    StravaAuthManager.shared.signOut()
+                    signedInState = false
+                })
+                Spacer()
+                Spacer()
+                Spacer()
+                Spacer()
+                Spacer()
+                Spacer()
             }
         }.onAppear {
             viewModel.getAthleteData()
         }
     }
+    
 }
-//struct ProfileView_Previews: PreviewProvider {
-//
-//    static var previews: some View {
-//        ProfileView()
-//    }
-//}
