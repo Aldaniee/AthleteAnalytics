@@ -15,6 +15,10 @@ class CacheManager {
     
     subscript(key: String) -> UIImage? {
         get { profile.object(forKey: key as NSString) }
-        set(image) { image == nil ? self.profile.removeObject(forKey: (key as NSString)) : self.profile.setObject(image!, forKey: (key as NSString)) }
+        set(image) {
+            image == nil
+            ? self.profile.removeObject(forKey: (key as NSString))
+            : self.profile.setObject(image!, forKey: (key as NSString))
+        }
     }
 }

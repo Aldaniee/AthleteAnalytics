@@ -12,8 +12,7 @@ public struct Constants {
     // Strava endpoints
     static let baseURL = "https://www.strava.com/api/v3"
     static let tokenUrl = "https://www.strava.com/oauth/token"
-    static let authenticatedAthlete = "/athlete"
-    static let athleteStats = "/stats"
+    
     static let urlScheme = "athleteanalytics://".addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
     static let fallbackUrl = "athleteanalytics.com"
     

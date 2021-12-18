@@ -9,18 +9,26 @@ import Combine
 import Foundation
 class ProfileViewModel: ObservableObject {
     
+    private let stravaAPICaller: StravaAPICallerProtocol
+
+    init(stravaAPICaller: StravaAPICallerProtocol = StravaAPICaller()) {
+        self.stravaAPICaller = stravaAPICaller
+    }
     private var cancellables = Set<AnyCancellable>()
+    
     @Published var athlete: Athlete?
+    @Published var error: Error?
+    
     var url = URL(string: "")
     
-    func getAthleteData() {
-        StravaAPICaller.shared.getAthlete()
+    func getAthlete() {
+        stravaAPICaller.getAthlete()
             .sink { completion in
                 switch completion {
-                case .failure(let err):
-                    print("Error is \(err.localizedDescription)")
                 case .finished:
                     print("GetAthlete Finished")
+                case .failure(let err):
+                    self.error = err
                 }
             }
         receiveValue: { [weak self] athleteData in

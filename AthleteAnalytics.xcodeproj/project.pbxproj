@@ -11,6 +11,8 @@
 		EAD1962A276BD11F005A132C /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD19629276BD11F005A132C /* Keys.swift */; };
 		EAD1962C276CD621005A132C /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD1962B276CD621005A132C /* ImageLoader.swift */; };
 		EAD19632276D34C1005A132C /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD19631276D34C1005A132C /* CacheManager.swift */; };
+		EAD19634276E6C86005A132C /* ProfileViewModelSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD19633276E6C86005A132C /* ProfileViewModelSpec.swift */; };
+		EAD19636276E6CE1005A132C /* MockStravaAPICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD19635276E6CE1005A132C /* MockStravaAPICaller.swift */; };
 		EAF7AF28276112FE0092F617 /* AthleteAnalyticsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF7AF27276112FE0092F617 /* AthleteAnalyticsApp.swift */; };
 		EAF7AF2C276113000092F617 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EAF7AF2B276113000092F617 /* Assets.xcassets */; };
 		EAF7AF2F276113000092F617 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EAF7AF2E276113000092F617 /* Preview Assets.xcassets */; };
@@ -52,6 +54,8 @@
 		EAD19629276BD11F005A132C /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		EAD1962B276CD621005A132C /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		EAD19631276D34C1005A132C /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
+		EAD19633276E6C86005A132C /* ProfileViewModelSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModelSpec.swift; sourceTree = "<group>"; };
+		EAD19635276E6CE1005A132C /* MockStravaAPICaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockStravaAPICaller.swift; sourceTree = "<group>"; };
 		EAF7AF24276112FE0092F617 /* AthleteAnalytics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AthleteAnalytics.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAF7AF27276112FE0092F617 /* AthleteAnalyticsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AthleteAnalyticsApp.swift; sourceTree = "<group>"; };
 		EAF7AF2B276113000092F617 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -109,6 +113,14 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		EAD19637276E7F52005A132C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				EAF7AF77276151BB0092F617 /* StravaAuthResponse.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		EAF7AF1B276112FE0092F617 = {
 			isa = PBXGroup;
 			children = (
@@ -160,6 +172,8 @@
 			isa = PBXGroup;
 			children = (
 				EAF7AF38276113000092F617 /* AthleteAnalyticsTests.swift */,
+				EAD19633276E6C86005A132C /* ProfileViewModelSpec.swift */,
+				EAD19635276E6CE1005A132C /* MockStravaAPICaller.swift */,
 			);
 			path = AthleteAnalyticsTests;
 			sourceTree = "<group>";
@@ -178,7 +192,7 @@
 			children = (
 				EAF7AF56276113180092F617 /* StravaAPICaller.swift */,
 				EAF7AF7527614CFA0092F617 /* StravaAuthManager.swift */,
-				EAF7AF77276151BB0092F617 /* StravaAuthResponse.swift */,
+				EAD19637276E7F52005A132C /* Models */,
 				EAD19631276D34C1005A132C /* CacheManager.swift */,
 			);
 			path = Managers;
@@ -397,6 +411,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				EAF7AF39276113000092F617 /* AthleteAnalyticsTests.swift in Sources */,
+				EAD19634276E6C86005A132C /* ProfileViewModelSpec.swift in Sources */,
+				EAD19636276E6CE1005A132C /* MockStravaAPICaller.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

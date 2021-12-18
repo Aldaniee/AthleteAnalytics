@@ -10,6 +10,4 @@ import XCTest
 
 class AthleteAnalyticsTests: XCTestCase {
     
-    func test
-
 }

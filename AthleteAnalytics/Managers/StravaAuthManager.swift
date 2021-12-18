@@ -9,13 +9,24 @@ import Foundation
 import Combine
 import AuthenticationServices
 
+//protocol StravaAuthManagerProtocol {
+//    var isSignedIn: Bool { get }
+//    var accessToken: String? { get }
+//    var refreshToken: String? { get }
+//    var tokenExpirationDate: Date? { get }
+//    func authenticate(context: ASWebAuthenticationPresentationContextProviding) -> Future<Bool, Error>
+//    func withValidToken(completion: @escaping (String) -> Void)
+//    func exchangeCodeForToken(code: String) -> Future<Bool, Error>
+//    func refreshIfNeeded() -> Future<Bool, Error>
+//    func storeTokens(result: StravaAuthResponse)
+//    func signOut()
+//}
+
 class StravaAuthManager {
     
     static let shared = StravaAuthManager()
 
     // MARK: - Public Variables
-    var authSession: ASWebAuthenticationSession?
-    
     var isSignedIn: Bool {
         return accessToken != nil
     }
@@ -32,6 +43,7 @@ class StravaAuthManager {
     }
     
     // MARK: - Private Variables
+    private var authSession: ASWebAuthenticationSession?
     private var cancellables = Set<AnyCancellable>()
     private init() {}
     
@@ -233,18 +245,16 @@ class StravaAuthManager {
                 .store(in: &self.cancellables)
         }
     }
-    
-    // MARK: - Private Functions
-    private func storeTokens(result: StravaAuthResponse) {
-        UserDefaults.standard.setValue(result.access_token, forKey: "access_token")
-        UserDefaults.standard.setValue(result.refresh_token, forKey: "refresh_token")
-        UserDefaults.standard.setValue(Date().addingTimeInterval(TimeInterval(result.expires_in)), forKey: "expires_in")
-    }
-
     public func signOut() {
         UserDefaults.standard.setValue(nil, forKey: "access_token")
         UserDefaults.standard.setValue(nil, forKey: "refresh_token")
         UserDefaults.standard.setValue(nil, forKey: "expires_in")
 
+    }
+    // MARK: - Internal Functions
+    internal func storeTokens(result: StravaAuthResponse) {
+        UserDefaults.standard.setValue(result.access_token, forKey: "access_token")
+        UserDefaults.standard.setValue(result.refresh_token, forKey: "refresh_token")
+        UserDefaults.standard.setValue(Date().addingTimeInterval(TimeInterval(result.expires_in)), forKey: "expires_in")
     }
 }

@@ -9,19 +9,34 @@ import Foundation
 import Combine
 import AuthenticationServices
 
-class StravaAPICaller {
-    static let shared = StravaAPICaller()
+enum Endpoint {
+    case athlete
+    case stats
+    var url: URL? {
+        switch self {
+        case .athlete:
+            return URL(string: "\(Constants.baseURL)/athlete")
+        case .stats:
+            return URL(string: "\(Constants.baseURL)/stats")
+        }
+    }
+}
+
+protocol StravaAPICallerProtocol {
+    func getAthlete() -> Future<Athlete, Error>
+}
+
+class StravaAPICaller: StravaAPICallerProtocol {
     private var cancellables = Set<AnyCancellable>()
-
-    private init() {}
-
-    // MARK: - Public API Calls
     
-    public func getAthlete() -> Future<Athlete, Error> {
-
+    func getAthlete() -> Future<Athlete, Error> {
+        return getData(endpoint: .athlete, type: Athlete.self)
+    }
+    
+    private func getData<T: Decodable>(endpoint: Endpoint, type: T.Type) -> Future<T, Error> {
         return Future { [weak self] promise in
             // Build URL
-            guard let self = self, let url = URL(string: "\(Constants.baseURL)\(Constants.authenticatedAthlete)") else {
+            guard let self = self, let url = endpoint.url else {
                 return promise(.failure(NetworkError.invalidURL))
             }
             
@@ -34,7 +49,7 @@ class StravaAPICaller {
                         }
                         return data
                     }
-                    .decode(type: Athlete.self, decoder: JSONDecoder())
+                    .decode(type: T.self, decoder: JSONDecoder())
                     .receive(on: RunLoop.main)
                     .sink(receiveCompletion: { (completion) in
                         if case let .failure(error) = completion {
