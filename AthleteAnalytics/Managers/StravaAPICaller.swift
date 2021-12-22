@@ -9,19 +9,6 @@ import Foundation
 import Combine
 import AuthenticationServices
 
-enum Endpoint {
-    case athlete
-    case stats(id: Int)
-    var url: URL? {
-        switch self {
-        case .athlete:
-            return URL(string: "\(Constants.baseURL)/athlete")
-        case .stats(let id):
-            return URL(string: "\(Constants.baseURL)/athletes/\(id)/stats")
-        }
-    }
-}
-
 protocol StravaAPICallerProtocol {
     func getAthlete() -> Future<Athlete, Error>
     func getAthleteStats(id: Int) -> Future<ActivityStats, Error>
@@ -30,13 +17,17 @@ protocol StravaAPICallerProtocol {
 class StravaAPICaller: StravaAPICallerProtocol {
     private var cancellables = Set<AnyCancellable>()
     
+    // MARK: - Public Functions
+    
     func getAthleteStats(id: Int) -> Future<ActivityStats, Error> {
-        return getData(endpoint: .stats(id: id), type: ActivityStats.self)
+        return getData(endpoint: .stats(athleteId: id), type: ActivityStats.self)
     }
     
     func getAthlete() -> Future<Athlete, Error> {
         return getData(endpoint: .athlete, type: Athlete.self)
     }
+    
+    // MARK: - Private Functions
     
     private func getData<T: Decodable>(endpoint: Endpoint, type: T.Type) -> Future<T, Error> {
         print("GetData: \(endpoint)")
@@ -79,8 +70,7 @@ class StravaAPICaller: StravaAPICallerProtocol {
         }
         
     }
-    // MARK: - Private
-
+    
     private func createRequest(
         with url: URL?,
         type: HTTPMethod,
@@ -99,7 +89,20 @@ class StravaAPICaller: StravaAPICallerProtocol {
         }
     }
     
-    enum HTTPMethod: String {
+    private enum Endpoint {
+        case athlete
+        case stats(athleteId: Int)
+        var url: URL? {
+            switch self {
+            case .athlete:
+                return URL(string: "\(Constants.baseURL)/athlete")
+            case .stats(let athleteId):
+                return URL(string: "\(Constants.baseURL)/athletes/\(athleteId)/stats")
+            }
+        }
+    }
+    
+    private enum HTTPMethod: String {
         case GET
         case PUT
         case POST
