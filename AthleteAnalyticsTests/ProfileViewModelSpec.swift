@@ -26,7 +26,7 @@ class ProfileViewModelSpec: XCTestCase {
         
         viewModel.getAthlete()
         XCTAssertTrue(viewModel.athlete?.id == MockStravaAPICaller.mockAthlete.id)
-        XCTAssertTrue(viewModel.url == URL(string: MockStravaAPICaller.mockAthlete.profile!))
+        XCTAssertTrue(viewModel.profilePictureUrl == URL(string: MockStravaAPICaller.mockAthlete.profile!))
     }
     
     func testGetAthleteWithAPIError() {

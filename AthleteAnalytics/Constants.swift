@@ -17,7 +17,7 @@ public struct Constants {
     static let fallbackUrl = "athleteanalytics.com"
     
     static var webOAuthUrl : String {
-        let string = "https://www.strava.com/oauth/mobile/authorize?client_id=\(Keys.stravaClientId)&redirect_uri=\(Constants.urlScheme)\(Constants.fallbackUrl)%2Fen-US&response_type=code&approval_prompt=auto&scope=activity%3Awrite%2Cread&state=test"
+        let string = "https://www.strava.com/oauth/mobile/authorize?client_id=\(Keys.stravaClientId)&redirect_uri=\(Constants.urlScheme)\(Constants.fallbackUrl)%2Fen-US&response_type=code&approval_prompt=auto&scope=activity%3Awrite%2Cread_all&state=test"
         return string
     }
 }

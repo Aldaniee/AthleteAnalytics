@@ -11,44 +11,51 @@ import AuthenticationServices
 
 enum Endpoint {
     case athlete
-    case stats
+    case stats(id: Int)
     var url: URL? {
         switch self {
         case .athlete:
             return URL(string: "\(Constants.baseURL)/athlete")
-        case .stats:
-            return URL(string: "\(Constants.baseURL)/stats")
+        case .stats(let id):
+            return URL(string: "\(Constants.baseURL)/athletes/\(id)/stats")
         }
     }
 }
 
 protocol StravaAPICallerProtocol {
     func getAthlete() -> Future<Athlete, Error>
+    func getAthleteStats(id: Int) -> Future<ActivityStats, Error>
 }
 
 class StravaAPICaller: StravaAPICallerProtocol {
     private var cancellables = Set<AnyCancellable>()
+    
+    func getAthleteStats(id: Int) -> Future<ActivityStats, Error> {
+        return getData(endpoint: .stats(id: id), type: ActivityStats.self)
+    }
     
     func getAthlete() -> Future<Athlete, Error> {
         return getData(endpoint: .athlete, type: Athlete.self)
     }
     
     private func getData<T: Decodable>(endpoint: Endpoint, type: T.Type) -> Future<T, Error> {
+        print("GetData: \(endpoint)")
         return Future { [weak self] promise in
             // Build URL
             guard let self = self, let url = endpoint.url else {
                 return promise(.failure(NetworkError.invalidURL))
             }
-            
             // Make Request
             self.createRequest(with: url, type: .GET) { request in
                 URLSession.shared.dataTaskPublisher(for: request)
                     .tryMap { (data, response) -> Data in
                         guard let httpResponse = response as? HTTPURLResponse, 200...299 ~= httpResponse.statusCode else {
+                            print("Status Code Error")
                             throw NetworkError.responseError
                         }
                         return data
                     }
+                
                     .decode(type: T.self, decoder: JSONDecoder())
                     .receive(on: RunLoop.main)
                     .sink(receiveCompletion: { (completion) in
@@ -63,7 +70,9 @@ class StravaAPICaller: StravaAPICallerProtocol {
                                 promise(.failure(NetworkError.unknown))
                             }
                         }
-                    }, receiveValue: { promise(.success($0)) })
+                    }, receiveValue: {
+                        promise(.success($0))
+                    })
                     .store(in: &self.cancellables)
             }
             

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Athlete: Codable, Identifiable, Hashable{
+struct Athlete: Codable, Hashable{
     let id: Int
     let username: String?
     let resourceState: Int
