@@ -11,14 +11,14 @@ import SwiftUI
 class CacheManager {
     static let shared = CacheManager()
     
-    private var profile: NSCache = NSCache<NSString, UIImage>()
+    private var profileImage: NSCache = NSCache<NSString, UIImage>()
     
     subscript(key: String) -> UIImage? {
-        get { profile.object(forKey: key as NSString) }
+        get { profileImage.object(forKey: key as NSString) }
         set(image) {
             image == nil
-            ? self.profile.removeObject(forKey: (key as NSString))
-            : self.profile.setObject(image!, forKey: (key as NSString))
+            ? self.profileImage.removeObject(forKey: (key as NSString))
+            : self.profileImage.setObject(image!, forKey: (key as NSString))
         }
     }
 }

@@ -30,7 +30,6 @@ class StravaAPICaller: StravaAPICallerProtocol {
     // MARK: - Private Functions
     
     private func getData<T: Decodable>(endpoint: Endpoint, type: T.Type) -> Future<T, Error> {
-        print("GetData: \(endpoint)")
         return Future { [weak self] promise in
             // Build URL
             guard let self = self, let url = endpoint.url else {
@@ -41,7 +40,7 @@ class StravaAPICaller: StravaAPICallerProtocol {
                 URLSession.shared.dataTaskPublisher(for: request)
                     .tryMap { (data, response) -> Data in
                         guard let httpResponse = response as? HTTPURLResponse, 200...299 ~= httpResponse.statusCode else {
-                            print("Status Code Error")
+                            print("GetData: \(endpoint) Status Code Error")
                             throw NetworkError.responseError
                         }
                         return data
@@ -62,6 +61,7 @@ class StravaAPICaller: StravaAPICallerProtocol {
                             }
                         }
                     }, receiveValue: {
+                        print("GetData: \(endpoint) Success")
                         promise(.success($0))
                     })
                     .store(in: &self.cancellables)

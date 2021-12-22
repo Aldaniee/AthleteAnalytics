@@ -12,5 +12,4 @@ struct StravaAuthResponse: Codable {
     let expires_at, expires_in: Int
     let refresh_token, access_token: String
     let athlete: Athlete
-
 }

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		EA8CB63A2771025C00CAF379 /* ActivityStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8CB6392771025C00CAF379 /* ActivityStats.swift */; };
 		EA8CB64527724A7800CAF379 /* MockJSONAthleteStats.json in Resources */ = {isa = PBXBuildFile; fileRef = EA8CB64427724A7800CAF379 /* MockJSONAthleteStats.json */; };
+		EA8CB6482773B00000CAF379 /* ActivityStatsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8CB6472773B00000CAF379 /* ActivityStatsTests.swift */; };
 		EAD19626276B9644005A132C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD19625276B9644005A132C /* Extensions.swift */; };
 		EAD1962A276BD11F005A132C /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD19629276BD11F005A132C /* Keys.swift */; };
 		EAD1962C276CD621005A132C /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD1962B276CD621005A132C /* ImageLoader.swift */; };
@@ -54,6 +55,7 @@
 /* Begin PBXFileReference section */
 		EA8CB6392771025C00CAF379 /* ActivityStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityStats.swift; sourceTree = "<group>"; };
 		EA8CB64427724A7800CAF379 /* MockJSONAthleteStats.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MockJSONAthleteStats.json; sourceTree = "<group>"; };
+		EA8CB6472773B00000CAF379 /* ActivityStatsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityStatsTests.swift; sourceTree = "<group>"; };
 		EAD19625276B9644005A132C /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		EAD19629276BD11F005A132C /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		EAD1962B276CD621005A132C /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
@@ -133,12 +135,12 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
-		EAD19637276E7F52005A132C /* Models */ = {
+		EAD19637276E7F52005A132C /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				EAF7AF77276151BB0092F617 /* StravaAuthResponse.swift */,
 			);
-			path = Models;
+			path = Model;
 			sourceTree = "<group>";
 		};
 		EAF7AF1B276112FE0092F617 = {
@@ -171,7 +173,6 @@
 				EAF7AF57276113180092F617 /* AppContentView.swift */,
 				EAF7AF64276115C30092F617 /* Managers */,
 				EAF7AF65276115CC0092F617 /* Profile */,
-				EAD19637276E7F52005A132C /* Models */,
 				EA8CB64627724A8C00CAF379 /* MockJSON */,
 				EAF7AF66276115E70092F617 /* SignIn */,
 				EAF7AF2B276113000092F617 /* Assets.xcassets */,
@@ -196,6 +197,8 @@
 				EAF7AF38276113000092F617 /* AthleteAnalyticsTests.swift */,
 				EAD19633276E6C86005A132C /* ProfileViewModelSpec.swift */,
 				EAD19635276E6CE1005A132C /* MockStravaAPICaller.swift */,
+				EA8CB64427724A7800CAF379 /* MockJSONAthleteStats.json */,
+				EA8CB6472773B00000CAF379 /* ActivityStatsTests.swift */,
 			);
 			path = AthleteAnalyticsTests;
 			sourceTree = "<group>";
@@ -215,6 +218,7 @@
 				EAF7AF56276113180092F617 /* StravaAPICaller.swift */,
 				EAF7AF7527614CFA0092F617 /* StravaAuthManager.swift */,
 				EAD19631276D34C1005A132C /* CacheManager.swift */,
+				EAD19637276E7F52005A132C /* Model */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -223,7 +227,6 @@
 			isa = PBXGroup;
 			children = (
 				EAF7AF58276113180092F617 /* ProfileView.swift */,
-				EA8CB64427724A7800CAF379 /* MockJSONAthleteStats.json */,
 				EAF7AF55276113180092F617 /* ProfileViewModel.swift */,
 				EA8CB64127722DE500CAF379 /* Model */,
 			);
@@ -396,6 +399,7 @@
 			files = (
 				EAF7AF39276113000092F617 /* AthleteAnalyticsTests.swift in Sources */,
 				EAD19634276E6C86005A132C /* ProfileViewModelSpec.swift in Sources */,
+				EA8CB6482773B00000CAF379 /* ActivityStatsTests.swift in Sources */,
 				EAD19636276E6CE1005A132C /* MockStravaAPICaller.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

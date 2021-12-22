@@ -34,23 +34,23 @@ struct ProfileView: View {
     }
     var runTotalDisplay: some View {
         return VStack {
-            Text("\(viewModel.getActivityCount(activityType: .run)) Runs")
-            Text(viewModel.getActivityDistance(activityType: .run))
-            Text(viewModel.getActivityDuration(activityType: .run))
+            Text("\(viewModel.getActivityCount(.run)) Runs")
+            Text(viewModel.getActivityDistance(.run))
+            Text(viewModel.getActivityDuration(.run))
         }
     }
     var rideTotalDisplay: some View {
         return VStack {
-            Text("\(viewModel.getActivityCount(activityType: .ride)) Rides")
-            Text(viewModel.getActivityDistance(activityType: .ride))
-            Text(viewModel.getActivityDuration(activityType: .ride))
+            Text("\(viewModel.getActivityCount(.ride)) Rides")
+            Text(viewModel.getActivityDistance(.ride))
+            Text(viewModel.getActivityDuration(.ride))
         }
     }
     var swimTotalDisplay: some View {
         return VStack {
-            Text("\(viewModel.getActivityCount(activityType: .swim)) Swims")
-            Text(viewModel.getActivityDistance(activityType: .swim))
-            Text(viewModel.getActivityDuration(activityType: .swim))
+            Text("\(viewModel.getActivityCount(.swim)) Swims")
+            Text(viewModel.getActivityDistance(.swim))
+            Text(viewModel.getActivityDuration(.swim))
         }
     }
     var profilePic: some View {
@@ -62,8 +62,8 @@ struct ProfileView: View {
     var name: some View {
         HStack {
             Group {
-                Text(viewModel.athlete?.firstname ?? "first")
-                Text(viewModel.athlete?.lastname ?? "last")
+                Text(viewModel.firstName)
+                Text(viewModel.lastName)
             }
         }
     }

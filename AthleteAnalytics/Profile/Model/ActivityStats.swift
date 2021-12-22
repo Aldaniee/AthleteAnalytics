@@ -8,6 +8,7 @@
 import Foundation
 
 struct ActivityStats: Codable, Hashable {
+    
     let biggestRideDistance,
         biggestClimbElevationGain: Double
     
@@ -43,6 +44,8 @@ struct ActivityStats: Codable, Hashable {
 
     }
     struct ActivityTotal: Codable, Hashable {
+        static let empty: ActivityTotal = ActivityTotal(achievementCount: nil, count: 0, elapsedTime: 0, elivationGain: 0.0, distance: 0.0, movingTime: 0)
+        
         let achievementCount: Int?
         let count, elapsedTime: Int
         let elivationGain, distance: Double
@@ -56,5 +59,10 @@ struct ActivityStats: Codable, Hashable {
             case elivationGain = "elevation_gain"
             case movingTime = "moving_time"
         }
+    }
+    enum ActivityType {
+        case run
+        case swim
+        case ride
     }
 }

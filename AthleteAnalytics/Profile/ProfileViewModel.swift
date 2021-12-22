@@ -7,43 +7,53 @@
 
 import Combine
 import Foundation
+import MapKit
+
 class ProfileViewModel: ObservableObject {
     
-    private let stravaAPICaller: StravaAPICallerProtocol
-
-    init() {
-        self.stravaAPICaller = StravaAPICaller()
-    }
-    init(stravaAPICaller: StravaAPICallerProtocol) {
-        self.stravaAPICaller = stravaAPICaller
-    }
+    init() { self.stravaAPICaller = StravaAPICaller() }
+    init(stravaAPICaller: StravaAPICallerProtocol) { self.stravaAPICaller = stravaAPICaller }
     convenience init(activityStats: ActivityStats) {
         self.init()
         self.activityStats = activityStats
     }
+    
     private var cancellables = Set<AnyCancellable>()
     
-    @Published var athlete: Athlete?
-    @Published var activityStats: ActivityStats?
+    private let stravaAPICaller: StravaAPICallerProtocol
+    @Published private var athlete: Athlete?
+    @Published private var activityStats: ActivityStats?
     @Published var error: Error?
     
-    var profilePictureUrl = URL(string: "")
+    var profilePictureUrl: URL?
     
-    func getActivityDistance(activityType: ActivityType) -> String {
+    var firstName: String {
+        return athlete?.firstname ?? "first"
+    }
+    var lastName: String {
+        return athlete?.lastname ?? "last"
+    }
+    
+    //MARK: - Intents
+    
+    func getActivityDistance(_ activityType: ActivityStats.ActivityType) -> String {
         if let activityStats = activityStats {
             let result = getCorrectTotals(activityType: activityType, activityStats: activityStats).distance
-            return "\(String(format: "%.1f", result))m"
+            let formatter = MKDistanceFormatter()
+            formatter.units = .metric
+            formatter.unitStyle = .abbreviated
+            return formatter.string(fromDistance: result)
         }
-        return "0m"
+        return "0 m"
     }
-    func getActivityCount(activityType: ActivityType) -> String {
+    func getActivityCount(_ activityType: ActivityStats.ActivityType) -> String {
         if let activityStats = activityStats {
             let result = getCorrectTotals(activityType: activityType, activityStats: activityStats).count
             return "\(result)"
         }
         return "0"
     }
-    func getActivityDuration(activityType: ActivityType) -> String {
+    func getActivityDuration(_ activityType: ActivityStats.ActivityType) -> String {
         if let activityStats = activityStats {
             let seconds = getCorrectTotals(activityType: activityType, activityStats: activityStats).movingTime
             let duration = TimeInterval(seconds)
@@ -85,35 +95,29 @@ class ProfileViewModel: ObservableObject {
             .sink { completion in
                 switch completion {
                 case .finished:
-                    print("GetActivityStats Finished")
+                    break
                 case .failure(let err):
                     self.error = err
                 }
             }
         receiveValue: { [weak self] activityStats in
             self?.activityStats = activityStats
-            print(activityStats)
         }
         .store(in: &cancellables)
     }
     //MARK: - Private Functions
     
-    private func getCorrectTotals(activityType: ActivityType, activityStats: ActivityStats) -> ActivityStats.ActivityTotal{
+    private func getCorrectTotals(activityType: ActivityStats.ActivityType, activityStats: ActivityStats) -> ActivityStats.ActivityTotal{
         switch activityType {
         case .run:
             return activityStats.allRunTotals
         case .swim:
-            return activityStats.allRideTotals
-        case .ride:
             return activityStats.allSwimTotals
+        case .ride:
+            return activityStats.allRideTotals
         }
     }
     
-}
-enum ActivityType {
-    case run
-    case swim
-    case ride
 }
 //// Added for working preview
 //extension ProfileViewModel{
