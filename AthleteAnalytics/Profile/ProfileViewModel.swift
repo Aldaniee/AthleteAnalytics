@@ -23,9 +23,9 @@ class ProfileViewModel: ObservableObject {
     private let stravaAPICaller: StravaAPICallerProtocol
     @Published private var athlete: Athlete?
     @Published private var activityStats: ActivityStats?
-    @Published var error: Error?
+    private (set) var profilePictureUrl: URL?
     
-    var profilePictureUrl: URL?
+    @Published var error: Error?
     
     var firstName: String {
         return athlete?.firstname ?? "first"
@@ -36,7 +36,7 @@ class ProfileViewModel: ObservableObject {
     
     //MARK: - Intents
     
-    func getActivityDistance(_ activityType: ActivityStats.ActivityType) -> String {
+    func getActivityDistance(_ activityType: ActivityType) -> String {
         if let activityStats = activityStats {
             let result = getCorrectTotals(activityType: activityType, activityStats: activityStats).distance
             let formatter = MKDistanceFormatter()
@@ -46,14 +46,14 @@ class ProfileViewModel: ObservableObject {
         }
         return "0 m"
     }
-    func getActivityCount(_ activityType: ActivityStats.ActivityType) -> String {
+    func getActivityCount(_ activityType: ActivityType) -> String {
         if let activityStats = activityStats {
             let result = getCorrectTotals(activityType: activityType, activityStats: activityStats).count
             return "\(result)"
         }
         return "0"
     }
-    func getActivityDuration(_ activityType: ActivityStats.ActivityType) -> String {
+    func getActivityDuration(_ activityType: ActivityType) -> String {
         if let activityStats = activityStats {
             let seconds = getCorrectTotals(activityType: activityType, activityStats: activityStats).movingTime
             let duration = TimeInterval(seconds)
@@ -74,6 +74,7 @@ class ProfileViewModel: ObservableObject {
                     print("GetAthlete Finished")
                 case .failure(let err):
                     self.error = err
+                    StravaAuthManager.shared.signOut()
                 }
             }
         receiveValue: { [weak self] athleteData in
@@ -107,7 +108,7 @@ class ProfileViewModel: ObservableObject {
     }
     //MARK: - Private Functions
     
-    private func getCorrectTotals(activityType: ActivityStats.ActivityType, activityStats: ActivityStats) -> ActivityStats.ActivityTotal{
+    private func getCorrectTotals(activityType: ActivityType, activityStats: ActivityStats) -> ActivityStats.ActivityTotal{
         switch activityType {
         case .run:
             return activityStats.allRunTotals

@@ -249,7 +249,6 @@ class StravaAuthManager {
         UserDefaults.standard.setValue(nil, forKey: "access_token")
         UserDefaults.standard.setValue(nil, forKey: "refresh_token")
         UserDefaults.standard.setValue(nil, forKey: "expires_in")
-
     }
     // MARK: - Internal Functions
     internal func storeTokens(result: StravaAuthResponse) {

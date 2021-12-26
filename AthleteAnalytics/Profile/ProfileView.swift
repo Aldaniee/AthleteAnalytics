@@ -22,35 +22,26 @@ struct ProfileView: View {
                 Spacer()
                 Text("All Time Stats").font(.title)
                 HStack {
-                    runTotalDisplay
-                    rideTotalDisplay
-                    swimTotalDisplay
+                    TabView {
+                        totalDisplay(for: .run)
+                        totalDisplay(for: .ride)
+                        totalDisplay(for: .swim)
+                    }
                 }.font(.headline).padding()
-                Spacer()
             }
         }.onAppear {
             viewModel.getAthlete()
         }
     }
-    var runTotalDisplay: some View {
-        return VStack {
-            Text("\(viewModel.getActivityCount(.run)) Runs")
-            Text(viewModel.getActivityDistance(.run))
-            Text(viewModel.getActivityDuration(.run))
+    @ViewBuilder
+    func totalDisplay(for type: ActivityType) -> some View {
+        VStack {
+            Text("\(viewModel.getActivityCount(type)) \(type.name)s")
+            Text(viewModel.getActivityDistance(type))
+            Text(viewModel.getActivityDuration(type))
         }
-    }
-    var rideTotalDisplay: some View {
-        return VStack {
-            Text("\(viewModel.getActivityCount(.ride)) Rides")
-            Text(viewModel.getActivityDistance(.ride))
-            Text(viewModel.getActivityDuration(.ride))
-        }
-    }
-    var swimTotalDisplay: some View {
-        return VStack {
-            Text("\(viewModel.getActivityCount(.swim)) Swims")
-            Text(viewModel.getActivityDistance(.swim))
-            Text(viewModel.getActivityDuration(.swim))
+        .tabItem {
+            type.image
         }
     }
     var profilePic: some View {

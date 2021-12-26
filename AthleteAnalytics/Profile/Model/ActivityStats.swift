@@ -60,9 +60,4 @@ struct ActivityStats: Codable, Hashable {
             case movingTime = "moving_time"
         }
     }
-    enum ActivityType {
-        case run
-        case swim
-        case ride
-    }
 }

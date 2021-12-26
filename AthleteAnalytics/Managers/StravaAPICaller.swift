@@ -20,16 +20,16 @@ class StravaAPICaller: StravaAPICallerProtocol {
     // MARK: - Public Functions
     
     func getAthleteStats(id: Int) -> Future<ActivityStats, Error> {
-        return getData(endpoint: .stats(athleteId: id), type: ActivityStats.self)
+        return getData(endpoint: .stats(athleteId: id))
     }
     
     func getAthlete() -> Future<Athlete, Error> {
-        return getData(endpoint: .athlete, type: Athlete.self)
+        return getData(endpoint: .athlete)
     }
     
     // MARK: - Private Functions
     
-    private func getData<T: Decodable>(endpoint: Endpoint, type: T.Type) -> Future<T, Error> {
+    private func getData<T: Decodable>(endpoint: Endpoint) -> Future<T, Error> {
         return Future { [weak self] promise in
             // Build URL
             guard let self = self, let url = endpoint.url else {
