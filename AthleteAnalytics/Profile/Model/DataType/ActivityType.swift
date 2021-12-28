@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-enum ActivityType {
+enum ActivityType: CaseIterable {
     case run
     case swim
     case ride

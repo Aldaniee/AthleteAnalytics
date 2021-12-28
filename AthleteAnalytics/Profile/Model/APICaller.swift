@@ -9,38 +9,23 @@ import Foundation
 import Combine
 import AuthenticationServices
 
-protocol StravaAPICallerProtocol {
-    func getAthlete() -> Future<Athlete, Error>
-    func getAthleteStats(id: Int) -> Future<ActivityStats, Error>
-}
-
-class StravaAPICaller: StravaAPICallerProtocol {
+class APICaller {
     private var cancellables = Set<AnyCancellable>()
     
     // MARK: - Public Functions
-    
-    func getAthleteStats(id: Int) -> Future<ActivityStats, Error> {
-        return getData(endpoint: .stats(athleteId: id))
-    }
-    
-    func getAthlete() -> Future<Athlete, Error> {
-        return getData(endpoint: .athlete)
-    }
-    
-    // MARK: - Private Functions
-    
-    private func getData<T: Decodable>(endpoint: Endpoint) -> Future<T, Error> {
+    func makeCall<T: Decodable>(to endpoint: Endpoint, token: String? = nil) -> Future<T, Error> {
         return Future { [weak self] promise in
             // Build URL
             guard let self = self, let url = endpoint.url else {
                 return promise(.failure(NetworkError.invalidURL))
             }
             // Make Request
-            self.createRequest(with: url, type: .GET) { request in
+            self.createRequest(with: url, endpoint: endpoint, token: token) { request in
                 URLSession.shared.dataTaskPublisher(for: request)
                     .tryMap { (data, response) -> Data in
                         guard let httpResponse = response as? HTTPURLResponse, 200...299 ~= httpResponse.statusCode else {
                             print("GetData: \(endpoint) Status Code Error")
+
                             throw NetworkError.responseError
                         }
                         return data
@@ -71,41 +56,31 @@ class StravaAPICaller: StravaAPICallerProtocol {
         
     }
     
-    private func createRequest(
+    func createRequest(
         with url: URL?,
-        type: HTTPMethod,
+        endpoint: Endpoint,
+        token: String?,
         completion: @escaping (URLRequest) -> Void
     ) {
-        StravaAuthManager.shared.withValidToken { token in
-            guard let apiURL = url else {
-                return
-            }
-            var request = URLRequest(url: apiURL)
-            request.setValue("Bearer \(token)",
-                             forHTTPHeaderField: "Authorization")
-            request.httpMethod = type.rawValue
-            request.timeoutInterval = 30
-            completion(request)
+        guard let apiURL = url else {
+            print("URL Error")
+            return
         }
-    }
-    
-    private enum Endpoint {
-        case athlete
-        case stats(athleteId: Int)
-        var url: URL? {
-            switch self {
-            case .athlete:
-                return URL(string: "\(Constants.baseURL)/athlete")
-            case .stats(let athleteId):
-                return URL(string: "\(Constants.baseURL)/athletes/\(athleteId)/stats")
+        var request = URLRequest(url: apiURL)
+        request.httpMethod = endpoint.method.rawValue
+        request.timeoutInterval = 30
+        if endpoint.method == .POST {
+            let components = endpoint.urlComponenets
+            request.httpBody = components.query?.data(using: .utf8)
+        }
+        if !endpoint.isAuthRequest {
+            if token == nil {
+                print("Token Error")
+            }
+            else {
+                request.setValue("Bearer \(token!)", forHTTPHeaderField: "Authorization")
             }
         }
-    }
-    
-    private enum HTTPMethod: String {
-        case GET
-        case PUT
-        case POST
-        case DELETE
+        completion(request)
     }
 }

@@ -25,7 +25,7 @@ class ProfileViewModelSpec: XCTestCase {
         }
         
         viewModel.getAthlete()
-        XCTAssertTrue(viewModel.athlete?.id == MockStravaAPICaller.mockAthlete.id)
+        XCTAssertTrue(viewModel.id == MockStravaAPICaller.mockAthlete.id)
         XCTAssertTrue(viewModel.profilePictureUrl == URL(string: MockStravaAPICaller.mockAthlete.profile!))
     }
     
@@ -35,7 +35,7 @@ class ProfileViewModelSpec: XCTestCase {
         }
         
         viewModel.getAthlete()
-        XCTAssertNil(viewModel.athlete)
+        XCTAssertNil(viewModel.id)
         XCTAssertNotNil(viewModel.error)
     }
 }

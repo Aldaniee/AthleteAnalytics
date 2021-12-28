@@ -9,9 +9,10 @@ import SwiftUI
 
 @main
 struct AthleteAnalyticsApp: App {
+    private let profile = ProfileViewModel()
     var body: some Scene {
         WindowGroup {
-            AppContentView()
+            ProfileView(viewModel: profile)
         }
     }
 }
